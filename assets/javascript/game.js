@@ -22,7 +22,11 @@ $(document).ready(function() {
 
 //2. Attempt to create object to store all game variables.
 	var star_wars = {
-		playerArr : [["Player_One",1],["Player_Two",2],["Player_Three",3],["Player_Four",4]],
+		obi_img: "'../images/obi.jpg'",
+		maul_img: "'../images/maul.jpg'",
+		luke_img: "'../images/luke_img.jpg'",
+		ewok_img: "'../images/ewok.jpg'",
+		playerArr : [["Player_One","'assets/images/obi.jpg'",1],["Player_Two","'assets/images/maul.jpg'",2],["Player_Three","'assets/images/luke.png'",3],["Player_Four","'assets/images/ewok.jpg'",4]],
 		test_var: 0,
 		create_players: function() {
 			//for loop to create div elements based on Activity 04-11-FridgeGame
@@ -35,10 +39,14 @@ $(document).ready(function() {
 
 				//logic to create players based on index from loop & this.playerArr[x][y]				
 				var player = this.playerArr[i][0];
-				var hp = this.playerArr[i][1];
-				players.html(player + "<br><img src='' alt='img.test'/><p>" + hp + "</p>");
+				var img_src = this.playerArr[i][1];
+				var hp = this.playerArr[i][2];
+				//
+				console.log(img_src);
+
+				players.html(player + "<br><img src=" + img_src + " alt='img.test' height='150' width='150'/><p>" + hp + "</p>");
 				//appending to generic row class, may need to change later as more row divs added
-				$(".row").append(players);
+				$("#players").append(players);
 
 			};//end of for loop
 
