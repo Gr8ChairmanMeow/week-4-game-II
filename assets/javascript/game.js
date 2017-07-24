@@ -22,7 +22,7 @@ $(document).ready(function() {
 
 //2. Attempt to create object to store all game variables.
 	var star_wars = {
-
+		playerArr : [["Player_One",1],["Player_Two",2],["Player_Three",3],["Player_Four",4]],
 		test_var: 0,
 		create_players: function() {
 			//for loop to create div elements based on Activity 04-11-FridgeGame
@@ -33,9 +33,10 @@ $(document).ready(function() {
 				//class to define player div containers
 				players.addClass("whtbx");
 
-				//need some sort of loop and array to give names and img src via subarrays
-				players.text("Blox")
-
+				//logic to create players based on index from loop & this.playerArr[x][y]				
+				var player = this.playerArr[i][0];
+				var hp = this.playerArr[i][1];
+				players.html(player + "<br><img src='' alt='img.test'/><p>" + hp + "</p>");
 				//appending to generic row class, may need to change later as more row divs added
 				$(".row").append(players);
 
@@ -44,5 +45,7 @@ $(document).ready(function() {
         },//end of create_players function
 
 	};//end of star_wars object
-	
+	star_wars.create_players();
 });//end of $(document).ready(function() { });
+
+//Will attempt to complete subarray logic with images and create new function to determine hitpoints randomnly.

@@ -33,3 +33,12 @@ header p{
 	float:left;
 	margin-right:5px;
 }
+
+@media screen and (max-width: 635px) {
+
+	.row {
+
+		height:250px;
+	};
+
+};
