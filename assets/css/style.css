@@ -47,6 +47,19 @@ header p{
 	border-color:white;
 }
 
+#kill_kill{
+	margin-top:2em;
+	background:white;
+	border:black solid 5px;
+	text-align:center;
+	width:120px;
+}
+
+#kill_kill:hover{
+	border-color:lightgrey;
+	background:red;
+}
+
 @media screen and (max-width: 1250px) {
 
 	.row {
@@ -57,7 +70,8 @@ header p{
 		color:white;
 	}
 
-	.play .whtbx{
+	.play .whtbx,
+	#kill_kill{
 		color:black;
 	}
 

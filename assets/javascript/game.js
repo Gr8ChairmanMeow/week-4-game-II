@@ -24,6 +24,7 @@ $(document).ready(function() {
 	var star_wars = {
 		playerArr : [["Player_One","'assets/images/obi.jpg'",1],["Player_Two","'assets/images/maul.jpg'",2],["Player_Three","'assets/images/luke.png'",3],["Player_Four","'assets/images/ewok.jpg'",4]],
 		been_clicked: true,
+		defender_clicked: true,
 		create_players: function(skip,user_row,remainder_row) {
 			//for loop to create div elements based on Activity 04-11-FridgeGame
         	for(var i =0; i < 4; i++){
@@ -92,25 +93,35 @@ $(document).ready(function() {
 	//assigns button logic for elements in enemies row
 	$(document).on('click','#enemies .whtbx',function(){
 
-		var defender = $( this ).html();
-		var char_val = parseInt($(this).attr("value"));
-		var defend = $("<div>");
+		if(star_wars.defender_clicked){
 
-		//class to redefine player div container
-		defend.addClass("whtbx");
+			var defender = $( this ).html();
+			var char_val = parseInt($(this).attr("value"));
+			var defend = $("<div>");
 
-		//re-add value to container
-		defend.attr("value",char_val);
+			//class to redefine player div container
+			defend.addClass("whtbx");
 
-		
-		//delete original element in enemies row
-		$(this).remove();
+			//re-add value to container
+			defend.attr("value",char_val);
 
-		//re-add img and other html elements
-		defend.html(defender)
+			//delete original element in enemies row
+			$(this).remove();
 
-		//appends chosen defender to defender row
-		$("#defender").append(defend);
+			//re-add img and other html elements
+			defend.html(defender)
+
+			//appends chosen defender to defender row
+			$("#defender").append(defend);
+
+			star_wars.defender_clicked = false;
+		}
+
+	});//end of .on function
+
+	$(document).on('click','#kill_kill',function(){
+
+		console.log("I've been clicked!");
 
 	});
 
