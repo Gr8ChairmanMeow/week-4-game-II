@@ -22,54 +22,38 @@ $(document).ready(function() {
 
 //2. Attempt to create object to store all game variables.
 	var star_wars = {
-		obi_img: "'../images/obi.jpg'",
-		maul_img: "'../images/maul.jpg'",
-		luke_img: "'../images/luke_img.jpg'",
-		ewok_img: "'../images/ewok.jpg'",
 		playerArr : [["Player_One","'assets/images/obi.jpg'",1],["Player_Two","'assets/images/maul.jpg'",2],["Player_Three","'assets/images/luke.png'",3],["Player_Four","'assets/images/ewok.jpg'",4]],
-		test_var: 0,
+		been_clicked: true,
 		create_players: function(skip,user_row,remainder_row) {
 			//for loop to create div elements based on Activity 04-11-FridgeGame
         	for(var i =0; i < 4; i++){
 
+        		var players = $("<div>");
+
+				//class to define player div containers
+				players.addClass("whtbx");
+				players.addClass("clickable");
+
+				players.attr("value",i);
+
+				//logic to create players based on index from loop & this.playerArr[x][y]				
+				var player = this.playerArr[i][0];
+				var img_src = this.playerArr[i][1];
+				var hp = this.playerArr[i][2];
+				//
+				//console.log(img_src);
+
+				players.html(player + "<br><img src=" + img_src + " alt='img.test' height='150' width='150'/><p>" + hp + "</p>");
+
 				if (i === skip){
 
-					var players = $("<div>");
-
-					//class to define player div containers
-					players.addClass("whtbx");
-
-					players.attr("value",i);
-
-					//logic to create players based on index from loop & this.playerArr[x][y]				
-					var player = this.playerArr[i][0];
-					var img_src = this.playerArr[i][1];
-					var hp = this.playerArr[i][2];
-					//
-					//console.log(img_src);
-
-					players.html(player + "<br><img src=" + img_src + " alt='img.test' height='150' width='150'/><p>" + hp + "</p>");
+					
 					//appending to generic row class, may need to change later as more row divs added
 					$(user_row).append(players);
 
 				}
 				else{
 
-					var players = $("<div>");
-
-					//class to define player div containers
-					players.addClass("whtbx");
-
-					players.attr("value",i);
-
-					//logic to create players based on index from loop & this.playerArr[x][y]				
-					var player = this.playerArr[i][0];
-					var img_src = this.playerArr[i][1];
-					var hp = this.playerArr[i][2];
-					//
-					console.log(img_src);
-
-					players.html(player + "<br><img src=" + img_src + " alt='img.test' height='150' width='150'/><p>" + hp + "</p>");
 					//appending to generic row class, may need to change later as more row divs added
 					$(remainder_row).append(players);
 
@@ -84,15 +68,52 @@ $(document).ready(function() {
 	//Below is what needs to run at initiate
 	star_wars.create_players("","","#players");
 
-	//Below is what needs to run when a user clicks a player
-	//star_wars.create_players(2,"#user_char","#enemies");
+	//assigns button logic to images using class whtbx
+	$(document).on('click','.whtbx',function(){
 
-	$(".whtbx").on("click", function() {
+		if(star_wars.been_clicked){
 
-		var char_val = $(this).attr("value");
-		console.log(char_val)
+			//clears first row
+			$("#players").html("");
+
+			//gets position of character selected
+			var char_val = parseInt($(this).attr("value"));
+
+			//runs create_players function to remake characters in new rows
+			star_wars.create_players(char_val,"#user_char","#enemies");
+
+			//boolean to stop this button click after user player has been chosen.
+			star_wars.been_clicked = false;
+
+		}//end of if statement
+
+	});//end of first .on 'click' function
+
+	//assigns button logic for elements in enemies row
+	$(document).on('click','#enemies .whtbx',function(){
+
+		var defender = $( this ).html();
+		var char_val = parseInt($(this).attr("value"));
+		var defend = $("<div>");
+
+		//class to redefine player div container
+		defend.addClass("whtbx");
+
+		//re-add value to container
+		defend.attr("value",char_val);
+
+		
+		//delete original element in enemies row
+		$(this).remove();
+
+		//re-add img and other html elements
+		defend.html(defender)
+
+		//appends chosen defender to defender row
+		$("#defender").append(defend);
 
 	});
+
 });//end of $(document).ready(function() { });
 
 //Will attempt to complete subarray logic with images and create new function to determine hitpoints randomnly.
